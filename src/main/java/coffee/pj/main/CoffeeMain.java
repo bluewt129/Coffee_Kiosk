@@ -1,11 +1,7 @@
 package coffee.pj.main;
 
-import java.util.InputMismatchException;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
-
 import coffee.pj.comm.CafeController;
-import coffee.pj.dto.Guest_DTO;
+import coffee.pj.comm.Scsupport;
 import coffee.pj.dto.Member_DTO;
 import coffee.pj.dto.Menu_DTO;
 import coffee.pj.dto.OrderMenu_DTO;
@@ -13,12 +9,10 @@ import coffee.pj.dto.OrderMenu_DTO;
 public class CoffeeMain {
 
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
+		Scsupport sc = new Scsupport();
 		CafeController ccon = new CafeController();
-		Menu_DTO mdto = new Menu_DTO();
 		Member_DTO mbto = new Member_DTO();
 		OrderMenu_DTO omd = new OrderMenu_DTO();
-		Guest_DTO gdto = new Guest_DTO();
 
 		boolean logined = false;
 		String joinname = "";
@@ -27,7 +21,7 @@ public class CoffeeMain {
 		boolean kiosk = true;
 		while (kiosk) {
 			while (!logined) {
-				System.out.println("샘플계정(관리자/0000001, 김자바/12345678");
+				System.out.println("샘플계정(관리자/0000001, 김자바/12345678)");
 				System.out.println("====================");
 				System.out.println("=     CAFE GUDI    =");
 				System.out.println("====================");
@@ -36,32 +30,21 @@ public class CoffeeMain {
 				System.out.println("CAFE : GUDI의 멤버이신가요?");
 				System.out.println("CAFE : (1:로그인 / 2:회원가입 / 3:게스트로 시작하기)");
 				System.out.print("입력 : ");
-				int rsp1 = 0;
-				try {
-					rsp1 = sc.nextInt();
-				} catch (Exception e) {
-					sc.nextLine();
-				}
+				int rsp1 = sc.scInt();
 				if (rsp1 == 1) {
 					System.out.println("==================");
 					System.out.println("=      로그인      =");
 					System.out.println("==================");
 					System.out.println("CAFE : 이름과 핸드폰 번호를 차례로 입력해주세요");
 					System.out.print("이름 : ");
-					try {
-						joinname = sc.next();
-					} catch (Exception e) {
-						sc.nextLine();
-					}
+					joinname = sc.scString();
+
 					boolean isphonenum = false;
 					while (!isphonenum) {
 						try {
 							System.out.print("핸드폰(숫자만 입력) : 010-");
-							try {
-								joinphone = sc.next();
-							} catch (Exception e) {
-								sc.nextLine();
-							}
+							joinphone = sc.scString();
+
 							Long.parseLong(joinphone);
 							if (joinphone.length() == 8) {
 								isphonenum = true;
@@ -85,13 +68,13 @@ public class CoffeeMain {
 					System.out.println("==================");
 					System.out.println("CAFE : 이름과 핸드폰 번호를 차례로 입력해주세요");
 					System.out.print("이름 : ");
-					joinname = sc.next();
-					joinphone = "";
+					joinname = sc.scString();
+					joinphone = sc.scString();
 					boolean isphonenum2 = false;
 					while (!isphonenum2) {
 						try {
 							System.out.print("핸드폰(숫자만 입력) : 010-");
-							joinphone = sc.next();
+							joinphone = sc.scString();
 							Long.parseLong(joinphone);
 							if (joinphone.length() == 8) {
 								isphonenum2 = true;
@@ -128,11 +111,8 @@ public class CoffeeMain {
 					System.out.println("4.프로그램 종료하기");
 					System.out.print("입력 : ");
 					int rspa1 = 0;
-					try {
-						rspa1 = sc.nextInt();
-					} catch (InputMismatchException e) {
-						sc.nextLine();
-					}
+					rspa1 = sc.scInt();
+
 					System.out.println();
 					switch (rspa1) {
 					case 1:
@@ -144,12 +124,8 @@ public class CoffeeMain {
 							System.out.println("4.제품 삭제하기");
 							System.out.println("5.일일 매출 확인");
 							System.out.println("6.이전 메뉴로 돌아가기");
-							int rrsp1 = 0;
-							try {
-								rrsp1 = sc.nextInt();
-							} catch (Exception e) {
-								sc.nextInt();
-							}
+							System.out.print("입력 : ");
+							int rrsp1 = sc.scInt();
 							switch (rrsp1) {
 							case 1:
 								System.out.println("==================");
@@ -166,22 +142,22 @@ public class CoffeeMain {
 								System.out.println("SYSTEM : 등록할 제품의 정보를 입력해주세요");
 								System.out.println("제품 타입:(1:음료/2:디저트)");
 								System.out.print("입력:");
-								int rspw1 = sc.nextInt();
+								int rspw1 = sc.scInt();
 								m1.setMenu_type(rspw1);
 
 								System.out.println("제품 이름");
 								System.out.print("입력:");
-								String str4 = sc.next();
+								String str4 = sc.scString();
 								m1.setMenu_name(str4);
 
 								System.out.println("제품 가격");
 								System.out.print("입력:");
-								int rspp = sc.nextInt();
+								int rspp = sc.scInt();
 								m1.setMenu_price(rspp);
 
 								System.out.println("제품 상세");
 								System.out.print("입력:");
-								String str5 = sc.next();
+								String str5 = sc.scString();
 								m1.setMenu_detail(str5);
 
 								ccon.setMenu(m1);
@@ -192,24 +168,24 @@ public class CoffeeMain {
 								System.out.println("==================");
 								System.out.println("SYSTEM : 수정할 제품의 제품코드를 입력해주세요");
 								System.out.print("입력:");
-								int rrrsp1 = sc.nextInt();
+								int rrrsp1 = sc.scInt();
 
 								System.out.println("==============================");
 								System.out.println("제품 타입 수정 :(1:음료/2:디저트)");
 								System.out.print("입력:");
-								int rrrsp2 = sc.nextInt();
+								int rrrsp2 = sc.scInt();
 
 								System.out.println("제품 이름 수정");
 								System.out.print("입력:");
-								String str1 = sc.next();
+								String str1 = sc.scString();
 
 								System.out.println("제품 가격 수정");
 								System.out.print("입력:");
-								int rrrsp3 = sc.nextInt();
+								int rrrsp3 = sc.scInt();
 
 								System.out.println("제품 상세 수정");
 								System.out.print("입력:");
-								String str2 = sc.next();
+								String str2 = sc.scString();
 
 								ccon.modifyMenu(rrrsp2, str1, rrrsp3, str2, rrrsp1);
 								break;
@@ -218,7 +194,8 @@ public class CoffeeMain {
 								System.out.println("=     제품 삭제     =");
 								System.out.println("==================");
 								System.out.println("SYSTEM : 삭제할 제품 번호를 입력해주세요");
-								int rspt = sc.nextInt();
+								System.out.print("입력 : ");
+								int rspt = sc.scInt();
 								ccon.delMenu(rspt);
 								break;
 							case 5:
@@ -227,7 +204,8 @@ public class CoffeeMain {
 								System.out.println("==================");
 								System.out.println("SYSTEM : 조회할 날짜를 지정해주세요");
 								System.out.println("SYSTEM : 입력 양식(YYYY-MM-DD)");
-								String darp = sc.next();
+								System.out.print("입력 : ");
+								String darp = sc.scString();
 								int sale = ccon.getOneSales(darp);
 								System.out.println(darp + " 일매출 : " + sale);
 								break;
@@ -248,12 +226,8 @@ public class CoffeeMain {
 							System.out.println("2.회원 등록하기");
 							System.out.println("3.회원 삭제하기");
 							System.out.println("4.이전 메뉴로 돌아가기");
-							int mrsp = 0;
-							try {
-								mrsp = sc.nextInt();
-							} catch(Exception e) {
-								sc.next();
-							}
+							System.out.print("입력 : ");
+							int mrsp = sc.scInt();
 							switch (mrsp) {
 							case 1:
 								System.out.println("==================");
@@ -267,15 +241,15 @@ public class CoffeeMain {
 								System.out.println("==================");
 								System.out.println("SYSTEM : 등록할 회원의 타입을 입력해주세요(1:관리자/2:일반회원)");
 								System.out.print("입력:");
-								int rrrsp1 = sc.nextInt();
+								int rrrsp1 = sc.scInt();
 
 								System.out.println("등록할 회원 이름");
 								System.out.print("입력:");
-								String stru = sc.next();
+								String stru = sc.scString();
 
 								System.out.println("등록할 회원 휴대폰 번호");
 								System.out.print("입력(8자리 숫자만):010-");
-								String stru2 = sc.next();
+								String stru2 = sc.scString();
 
 								ccon.setMem(rrrsp1, stru, stru2);
 								break;
@@ -285,12 +259,11 @@ public class CoffeeMain {
 								System.out.println("==================");
 								System.out.println("SYSTEM : 삭제할 회원의 이름을 입력해주세요");
 								System.out.print("입력:");
-								String duser1 = sc.next();
+								String duser1 = sc.scString();
 
 								System.out.println("삭제할 회원 휴대폰 번호");
 								System.out.print("입력(8자리 숫자만):010-");
-								String duser2 = sc.next();
-								sc.nextLine();
+								String duser2 = sc.scString();
 
 								ccon.delMem(duser1, duser2);
 								break;
@@ -307,12 +280,7 @@ public class CoffeeMain {
 					case 3:
 						System.out.println("SYSTEM : 로그아웃 하시겠습니까? (1:예 / 2:아니오)");
 						System.out.print("입력 : ");
-						int rrsp3 = 0;
-						try {
-							rrsp3 = sc.nextInt();
-						} catch (InputMismatchException e) {
-							sc.nextLine();
-						}
+						int rrsp3 = sc.scInt();
 						if (rrsp3 == 1) {
 							logined = false;
 							break;
@@ -322,12 +290,8 @@ public class CoffeeMain {
 						}
 					case 4:
 						System.out.println("정말로 종료하시겠습니까?(1예/2아니오)");
-						int overp = 0;
-						try {
-							overp = sc.nextInt();
-						} catch (Exception e) {
-							sc.next();
-						}
+						System.out.print("입력 : ");
+						int overp = sc.scInt();
 						if (overp == 1) {
 							logined = false;
 							kiosk = false;
@@ -351,12 +315,7 @@ public class CoffeeMain {
 					System.out.println("3.내 구매내역 보기");
 					System.out.println("4.로그아웃");
 					System.out.print("입력 : ");
-					int umopen = 0;
-					try {
-						umopen = sc.nextInt();
-					} catch (InputMismatchException e) {
-						sc.nextInt();
-					}
+					int umopen = sc.scInt();
 					System.out.println();
 					switch (umopen) {
 					case 1:
@@ -365,19 +324,23 @@ public class CoffeeMain {
 						System.out.println("==================");
 						System.out.println("CAFE : 제품 번호를 누르면 상세보기(0:뒤로가기)");
 						ccon.getUserMenu(1);
-						int dlod = sc.nextInt();
+						System.out.print("입력 : ");
+						int dlod = sc.scInt();
 						if (dlod != 0) {
 							ccon.getOneMenu(dlod);
 							System.out.println("해당 메뉴 구매하기(1:예/2:뒤로가기)");
-							int buyd = sc.nextInt();
+							System.out.print("입력 : ");
+							int buyd = sc.scInt();
 							switch (buyd) {
 							case 1:
 								System.out.println("옵션을 추가하시겠습니까?(1:예/2:아니오)");
-								int buyd2 = sc.nextInt();
+								System.out.print("입력 : ");
+								int buyd2 = sc.scInt();
 								if (buyd2 == 1) {
 									ccon.getAllOpt();
 									System.out.println("원하시는 옵션 번호를 선택해주세요");
-									int buyd3 = sc.nextInt();
+									System.out.print("입력 : ");
+									int buyd3 = sc.scInt();
 									if (buyd3 > ccon.getAllOpt().size()) {
 										System.out.println("초과된 지정 범위입니다");
 									} else {
@@ -407,11 +370,13 @@ public class CoffeeMain {
 						System.out.println("==================");
 						System.out.println("CAFE : 제품 번호를 누르면 상세보기(0:뒤로가기)");
 						ccon.getUserMenu(2);
-						int dlos = sc.nextInt();
+						System.out.print("입력 : ");
+						int dlos = sc.scInt();
 						if (dlos != 0) {
 							ccon.getOneMenu(dlos);
 							System.out.println("해당 메뉴 구매하기(1:예/2:뒤로가기)");
-							int buys = sc.nextInt();
+							System.out.print("입력 : ");
+							int buys = sc.scInt();
 							switch (buys) {
 							case 1:
 								ccon.setOrder(buys, mbto.getMem_cart());
@@ -434,12 +399,7 @@ public class CoffeeMain {
 					case 4:
 						System.out.println("SYSTEM : 로그아웃 하시겠습니까? (1:예 / 2:아니오)");
 						System.out.print("입력 : ");
-						int rrsp31 = 0;
-						try {
-							rrsp31 = sc.nextInt();
-						} catch (InputMismatchException e) {
-							sc.nextLine();
-						}
+						int rrsp31 = sc.scInt();
 						if (rrsp31 == 1) {
 							logined = false;
 							break;
