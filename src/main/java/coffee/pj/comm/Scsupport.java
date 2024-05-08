@@ -12,9 +12,10 @@ public class Scsupport {
 			try {
 				num = sc.nextInt();
 				sccan = true;
-			} catch (Exception e) {
+			} catch (java.util.InputMismatchException e) {
 				System.out.println("숫자만 입력해주세요");
-				e.printStackTrace();
+				sc.nextLine();
+				System.out.print("입력 : ");
 			}
 		}
 		return num;
@@ -29,7 +30,8 @@ public class Scsupport {
 				sccan = true;
 			} catch (Exception e) {
 				System.out.println("문자만 입력해주세요");
-				e.printStackTrace();
+				sc.nextLine();
+				System.out.print("입력 : ");
 			}
 		}
 		return str;

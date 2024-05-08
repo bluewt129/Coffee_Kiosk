@@ -181,8 +181,8 @@ public class CafeController extends DataBase implements IOrderMenuDao, IUserMemD
 
 		return rowNum;
 	}// (관리자, 사용자) 회원 삭제(탈퇴)
-		// 주문서 등록. 해당 메뉴 재고 자동 차감 트리거. 로그인한 회원은 장바구니 자동업데이트
-
+	
+	// 주문서 등록. 해당 메뉴 재고 자동 차감 트리거. 로그인한 회원은 장바구니 자동업데이트
 	@Override
 	public int setOrder(int menu_num, int mem_cart) {
 		int rowNum = 0;
